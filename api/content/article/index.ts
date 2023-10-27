@@ -2,12 +2,17 @@ import request from "~/composables/request";
 import type {ApiResult, PageResult} from "@/api";
 import type {Article, ArticleParam} from "./model";
 import requestAxios from '@/utils/request-axios';
+import { WatchSource } from "vue";
 
 /**
  * 分页查询文章
  */
 export async function pageArticles(params: ArticleParam) {
-  const res = await request.get<PageResult<Article>>('/content/article/page', params, {server: true});
+  const res = await request.get<PageResult<Article>>('/content/article/page', {...params},
+      {
+        server: true
+      }
+  );
   if (res.code === 0) {
     return res.data && res.data;
   }

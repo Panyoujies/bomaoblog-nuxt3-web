@@ -30,26 +30,28 @@ const { page } = route.query;
 params.page = Number(page) || 1;
 
 const fetchData = async () => {
-  await useAsyncData("read_alias_article", async () => pageArticles(params)).then((res) => {
-    tolal.value = res.data.value?.count || 0;
-    articleList.value = res.data.value?.list || [];
+  try {
+    await useAsyncData("read_alias_article", async () => pageArticles(params)).then((res) => {
+      tolal.value = res.data.value?.count || 0;
+      articleList.value = res.data.value?.list || [];
+      loading.value = false;
+      // 获取容器元素。请根据您的实际 DOM 结构来选择合适的选择器。
+      const container = document.querySelector('.bomaos-scrollbar-container');
+      if (container) {
+        container.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+    });
+  } catch (error) {
     loading.value = false;
-    // 获取容器元素。请根据您的实际 DOM 结构来选择合适的选择器。
-    const container = document.querySelector('.bomaos-scrollbar-container');
-    if (container) {
-      container.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
-  });
+  }
 };
 
-watch(() => route.query, async (newQuery) => {
-  const newPage = newQuery.page;
-  if (newPage !== undefined) {
+watch(() => route.query?.page, async (newPage, oldPage) => {
+  if (newPage !== oldPage && newPage !== undefined) {
     params.page = Number(newPage);
-    // 重新获取数据
     await fetchData();
   }
 });
