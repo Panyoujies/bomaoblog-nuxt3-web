@@ -68,11 +68,9 @@ const submitComment = async () => {
       </el-button>
     </div>
     <div v-if="!token" class="noLogin">
-      <span class="iconfont icon-show_yinsizhengce_fill"></span>
-      <div class="title">您还未登录</div>
-      <p>请登录后进行评论</p>
       <div class="btn">
-        <el-button type="primary" plain @click="authStore.showModal = true">登录</el-button>
+        <el-button type="primary" plain @click="authStore.showModal = true">登录 / 注册</el-button>
+        <div class="title">请登录后进行评论</div>
       </div>
     </div>
   </div>
@@ -98,7 +96,7 @@ const submitComment = async () => {
 
   .noLogin {
     align-items: center;
-    background-color: #f3f3f3;
+    background-color: #f2f3f5;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -108,15 +106,16 @@ const submitComment = async () => {
     top: 0;
     z-index: 5;
 
-    .title {
-      font-size: 22px;
-      margin-bottom: 5px;
-    }
+    .btn {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
 
-    p {
-      color: #aaa;
-      font-size: 14px;
-      margin-bottom: 15px;
+      .title {
+        color: #666;
+        font-size: 16px;
+        margin-left: 10px;
+      }
     }
   }
 }
