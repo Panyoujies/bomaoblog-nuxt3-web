@@ -23,6 +23,7 @@ const fetchData = async () => {
   await useAsyncData("read_index_article", async () => pageArticles(params)).then((res) => {
     articleList.value = res.data.value?.list || [];
     tolal.value = res.data.value?.count || 0;
+    loading.value = false;
     // 获取容器元素。请根据您的实际 DOM 结构来选择合适的选择器。
     const container = document.querySelector('.bomaos-scrollbar-container');
     if (container) {
@@ -31,7 +32,6 @@ const fetchData = async () => {
         behavior: 'smooth'
       });
     }
-    loading.value = false;
   });
 };
 
@@ -50,6 +50,10 @@ const switchPage = async (value: number) => {
   navigateTo({query: {page: value}});
   loading.value = true;
 }
+
+onUnmounted(() => {
+  loading.value = false;
+})
 
 useHead({
   title: '鱼七博客 - 致力于分享最全的编程教程',
@@ -115,6 +119,8 @@ useHead({
               </div>
               <div class="pagination">
                 <el-pagination
+                    background
+                    small
                     v-model:current-page="params.page"
                     layout="prev, pager, next"
                     :total="tolal"

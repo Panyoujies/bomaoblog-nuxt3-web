@@ -9,7 +9,7 @@ import NumberFormatter from "../../utils/NumberFormatter";
 
 const category = ref<Category>({});
 const articleList = ref<Article[]>([]);
-const loading = ref(true);
+const loading = ref<boolean>(false);
 const tolal = ref<number>(0);
 const route = useRoute();
 
@@ -33,6 +33,7 @@ const fetchData = async () => {
   await useAsyncData("read_alias_article", async () => pageArticles(params)).then((res) => {
     tolal.value = res.data.value?.count || 0;
     articleList.value = res.data.value?.list || [];
+    loading.value = false;
     // 获取容器元素。请根据您的实际 DOM 结构来选择合适的选择器。
     const container = document.querySelector('.bomaos-scrollbar-container');
     if (container) {
@@ -41,7 +42,6 @@ const fetchData = async () => {
         behavior: 'smooth'
       });
     }
-    loading.value = false;
   });
 };
 
@@ -60,6 +60,10 @@ const switchPage = (value: number) => {
   navigateTo({query: {page: value}});
   loading.value = true;
 }
+
+onUnmounted(() => {
+  loading.value = false;
+})
 
 useHead({
   title: computed(() => {
@@ -180,6 +184,8 @@ useHead({
                 </div>
                 <div class="pagination">
                   <el-pagination
+                      background
+                      small
                       v-model:current-page="params.page"
                       layout="prev, pager, next"
                       :total="tolal"
