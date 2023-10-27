@@ -1,0 +1,92 @@
+@import './transition/index.less';
+
+body, html {
+  margin: 0 auto;
+  background: rgb(246, 246, 246);
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  margin: 0 auto;
+  width: 900px;
+}
+
+.yuqi-layout {
+  margin: 15px 0;
+}
+
+.bomaos-card {
+  background-color: white !important;
+  box-shadow: 0 0 2px #627c991a !important;
+  border-radius: 5px !important;
+  border: transparent !important;
+
+  .el-card__header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f0f0;
+
+    span {
+      font-weight: bold;
+    }
+  }
+}
+
+.el-empty {
+  padding: 20px 0 !important;
+}
+
+.pagination {
+  border-top: 1px solid #efefef;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .tolal {
+    font-size: 14px;
+    color: #666;
+  }
+}
+
+.sticky-article {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 15px;
+}
+
+.bomaos-ellipsis {
+  -webkit-line-clamp: 2;
+  display: -webkit-inline-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.container-header {
+  background-color: white;
+  border-bottom: 1px solid #f3f3f3;
+}
+
+.el-dialog__body {
+  padding: 0;
+}
+
+@-webkit-keyframes searchLights {
+  0% { left: -90px; top: 0; }
+  to { left: 90px; top: 0; }
+}
+
+@media (max-width: 640px) {
+  .container {
+    margin: 0 auto;
+    width: auto;
+    padding: 0 15px;
+  }
+}

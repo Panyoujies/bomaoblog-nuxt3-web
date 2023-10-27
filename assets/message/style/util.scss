@@ -1,0 +1,47 @@
+@use 'element-plus/theme-chalk/src/mixins/function.scss' as *;
+@use 'sass:map';
+
+// 生成 css 变量名
+@function eleJoinVar($list) {
+  $name: '--ele';
+  @each $item in $list {
+    @if $item != '' {
+      $name: $name + '-' + $item;
+    }
+  }
+  @return $name;
+}
+
+// 获取 css 变量值
+@function eleVar($arg1, $arg2: '', $arg3: '') {
+  $args: $arg1, $arg2;
+  @if $arg3 != '' {
+    @return var(#{eleJoinVar($args)}, $arg3);
+  } @else {
+    @return var(#{eleJoinVar($args)});
+  }
+}
+
+// 获取 css 变量名
+@function eleVarName($args...) {
+  @return eleJoinVar($args);
+}
+
+// 生成组件 css 变量
+@mixin set-ele-var($name, $variables) {
+  @if map.has-key($variables, $name) {
+    @each $attribute, $value in map.get($variables, $name) {
+      #{eleVarName($name, $attribute)}: #{$value};
+    }
+  }
+}
+
+// 获取 element 的 css 变量值
+@function elVar($args...) {
+  @return getCssVar($args...);
+}
+
+// 获取 element 的 css 变量名
+@function elVarName($args...) {
+  @return getCssVarName($args...);
+}

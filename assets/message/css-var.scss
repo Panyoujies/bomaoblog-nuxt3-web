@@ -1,0 +1,139 @@
+@use './style/util.scss' as *;
+
+/* 滚动条 */
+@mixin set-scrollbar-var($var) {
+  @include set-ele-var('scrollbar', $var);
+}
+
+/* 消息提示 */
+@mixin set-message-var($var) {
+  .ele-message {
+    @include set-ele-var('message', $var);
+  }
+
+  .ele-message-mask {
+    @include set-ele-var('message-mask', $var);
+  }
+}
+
+/* 样式重写 */
+@mixin set-overwrite-var($var) {
+  // Popper
+  .el-popper {
+    @include set-ele-var('popper', $var);
+  }
+
+  // Tooltip
+  .el-popper.is-dark {
+    @include set-ele-var('tooltip', $var);
+  }
+
+  // Select
+  .el-select__popper {
+    @include set-ele-var('select', $var);
+  }
+
+  // Autocomplete
+  .el-autocomplete__popper {
+    @include set-ele-var('autocomplete', $var);
+  }
+
+  // Cascader
+  .el-cascader__dropdown {
+    @include set-ele-var('cascader', $var);
+  }
+
+  // TableFilter
+  .el-table-filter {
+    @include set-ele-var('table-filter', $var);
+  }
+
+  // MessageBox
+  .el-message-box {
+    @include set-ele-var('message-box', $var);
+  }
+
+  // Notification
+  .el-notification {
+    @include set-ele-var('notification', $var);
+  }
+
+  // Radio
+  .el-radio {
+    @include set-ele-var('radio', $var);
+  }
+
+  // Checkbox
+  .el-checkbox {
+    @include set-ele-var('checkbox', $var);
+  }
+
+  // ImageViewer
+  .el-image-viewer__wrapper {
+    @include set-ele-var('image-viewer', $var);
+  }
+
+  // Descriptions
+  .el-descriptions {
+    @include set-ele-var('descriptions', $var);
+  }
+
+  // Datepicker
+  .el-date-picker,
+  .el-date-range-picker {
+    @include set-ele-var('datepicker', $var);
+  }
+
+  // Timepicker
+  .el-time-panel,
+  .el-time-range-picker {
+    @include set-ele-var('timepicker', $var);
+  }
+}
+
+// 美化滚动条样式
+@mixin scrollbar-style() {
+  ::-webkit-scrollbar {
+    width: eleVar('scrollbar', 'size');
+    height: eleVar('scrollbar', 'size');
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: eleVar('scrollbar', 'padding') solid transparent;
+    border-radius: eleVar('scrollbar', 'radius');
+    background-color: eleVar('scrollbar', 'color');
+    background-clip: padding-box;
+
+    &:hover {
+      background-color: eleVar('scrollbar', 'hover-color');
+    }
+  }
+
+  ::-webkit-scrollbar-track {
+    background: eleVar('scrollbar', 'bg');
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  // 火狐浏览器
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: eleVar('scrollbar', 'color') eleVar('scrollbar', 'bg');
+  }
+}
+
+@mixin set-scrollbar-style($selector) {
+  @if $selector == '' {
+    @include scrollbar-style();
+  } @else if $selector == 'pc' {
+    @media (hover: hover) and (pointer: fine) {
+      @include scrollbar-style();
+    }
+  } @else if $selector != 'never' {
+    #{$selector} {
+      @include scrollbar-style();
+    }
+  }
+}

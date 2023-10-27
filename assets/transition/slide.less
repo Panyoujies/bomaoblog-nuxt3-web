@@ -1,0 +1,31 @@
+/* 底部消退 */
+.slide-bottom-enter-active,
+.slide-bottom-leave-active {
+  transition: opacity 0.2s ease-out, transform 0.25s ease-out;
+}
+
+.slide-bottom-enter-from {
+  opacity: 0;
+  transform: translateY(-2%);
+}
+
+.slide-bottom-leave-to {
+  opacity: 0;
+  transform: translateY(2%);
+}
+
+/* 右侧消退 */
+.slide-right-leave-active,
+.slide-right-enter-active {
+  transition: opacity 0.2s ease-out, transform 0.25s ease-out;
+}
+
+.slide-right-enter-from {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translateX(20px);
+}

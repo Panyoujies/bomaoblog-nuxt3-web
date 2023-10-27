@@ -1,0 +1,47 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
+    "@element-plus/nuxt": "^1.0.6",
+    "@nuxt/devtools": "latest",
+    "core-js": "^3.33.1",
+    "element-plus": "^2.3.14",
+    "less": "^4.2.0",
+    "mobile-detect": "^1.4.5",
+    "nuxt": "^3.8.0",
+    "nuxt-icon": "^0.5.0",
+    "sass": "^1.69.3",
+    "scss": "^0.2.4",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.5"
+  },
+  "dependencies": {
+    "@pinia-plugin-persistedstate/nuxt": "^1.1.2",
+    "@pinia/nuxt": "^0.5.0",
+    "@traptitech/markdown-it-katex": "^3.6.0",
+    "@types/markdown-it": "^13.0.2",
+    "@types/markdown-it-link-attributes": "^3.0.2",
+    "@vant/nuxt": "^1.0.3",
+    "@vueuse/core": "^10.5.0",
+    "@vueuse/nuxt": "^10.5.0",
+    "dayjs-nuxt": "^2.1.1",
+    "axios": "^1.5.0",
+    "highlight.js": "^11.9.0",
+    "markdown-it": "^13.0.2",
+    "markdown-it-link-attributes": "^4.0.1",
+    "markdown-it-toc-and-anchor": "^4.2.0",
+    "pinia": "^2.1.7",
+    "vant": "^4.7.1",
+    "xgplayer": "^3.0.9",
+    "xgplayer-mp4": "^3.0.9"
+  }
+}

@@ -1,0 +1,67 @@
+.markdown-body {
+  background-color: transparent;
+  font-size: 14px;
+
+  p {
+    white-space: pre-wrap;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  pre code,
+  pre tt {
+    line-height: 1.65;
+  }
+
+  .highlight pre,
+  pre {
+    background-color: #fff;
+  }
+
+  code.hljs {
+    padding: 15px 15px 11px 15px
+  }
+
+  .code-block {
+
+    &-header {
+      padding: 5px 15px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      color: #b3b3b3;
+      border-bottom: solid 1px rgb(239, 239, 245);
+
+      &__copy {
+        cursor: pointer;
+        margin-left: 0.5rem;
+        user-select: none;
+
+        &:hover {
+          color: #65a665;
+        }
+      }
+    }
+  }
+
+}
+
+html {
+  .message-reply {
+    .whitespace-pre-wrap {
+      white-space: pre-wrap;
+      color: var(--n-text-color);
+    }
+  }
+
+  .highlight pre,
+  pre {
+    background-color: #282c34;
+  }
+}

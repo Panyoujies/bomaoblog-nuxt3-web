@@ -1,0 +1,128 @@
+@use './style/util.scss' as *;
+@use './css-var.scss' as *;
+
+// 样式变量
+$ele: () !default;
+// 过渡动画
+$ele-transition: 0.2s !default;
+
+@include set-message-var($ele);
+
+/* 消息提示 */
+.ele-message.el-message {
+  width: max-content;
+  padding: eleVar('message', 'padding');
+  border-radius: eleVar('message', 'radius');
+  box-shadow: eleVar('message', 'shadow');
+  border: none;
+
+  .el-message__content {
+    color: eleVar('message', 'color');
+    font-size: eleVar('message', 'size');
+    box-sizing: border-box;
+  }
+
+  .el-message__icon {
+    font-size: eleVar('message', 'icon-size');
+    margin: eleVar('message', 'icon-margin');
+  }
+
+  .el-message__closeBtn {
+    width: eleVar('message', 'close-size');
+    height: eleVar('message', 'close-size');
+    line-height: eleVar('message', 'close-size');
+    color: eleVar('message', 'close-color');
+    font-size: eleVar('message', 'close-font-size');
+    margin: eleVar('message', 'close-margin');
+    border-radius: eleVar('message', 'close-radius');
+    transition: (color $ele-transition, background-color $ele-transition);
+    position: static;
+    top: auto;
+    right: auto;
+    transform: none;
+
+    &:hover {
+      color: eleVar('message', 'close-hover-color');
+      background: eleVar('message', 'close-hover-bg');
+    }
+  }
+
+  &.is-closable .el-message__content {
+    padding-right: 0;
+  }
+
+  &.el-message--info {
+    #{elVarName('message', 'text-color')}: elVar('color-primary');
+    #{elVarName('message', 'bg-color')}: elVar('color-primary', 'light-9');
+    #{elVarName('message', 'border-color')}: elVar('color-primary', 'light-8');
+  }
+
+  // 简约风格
+  &.is-plain {
+    #{elVarName('message', 'bg-color')}: eleVar('message', 'plain-bg');
+  }
+
+  // 加载框
+  &.ele-message-loading {
+    #{elVarName('message', 'text-color')}: elVar('color-primary');
+    #{elVarName('message', 'bg-color')}: elVar('color-primary', 'light-9');
+    #{elVarName('message', 'border-color')}: elVar('color-primary', 'light-8');
+
+    // 简约风格
+    &.is-plain {
+      #{elVarName('message', 'bg-color')}: eleVar('message', 'plain-bg');
+    }
+  }
+}
+
+/* 加载框 */
+.ele-message-loading.el-message {
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  transform: none;
+  transition: (opacity elVar('transition-duration'), margin 0.4s, top 0.4s);
+
+  &.el-message-fade-enter-from,
+  &.el-message-fade-leave-to {
+    margin-top: -62px;
+  }
+
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  & > .el-message__content {
+    position: relative;
+  }
+
+  & > .el-message__icon,
+  & > .el-message__content,
+  & > .el-message__closeBtn {
+    z-index: 1;
+  }
+
+  & > .el-message__icon > .el-icon {
+    font-size: 16px;
+    animation: rotating 1s linear infinite;
+  }
+
+  // 遮罩
+  &.ele-message-mask {
+    box-shadow:
+            eleVar('message', 'shadow'), 0 0 0 eleVar('message-mask', 'size') eleVar('message-mask', 'color');
+  }
+
+  // 居中
+  &.is-centered {
+    top: 0 !important;
+    bottom: 0;
+    height: max-content;
+    margin: auto;
+  }
+}

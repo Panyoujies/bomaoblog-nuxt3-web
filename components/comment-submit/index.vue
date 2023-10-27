@@ -1,0 +1,123 @@
+<script setup lang="ts">
+import type {CommentParam} from "~/api/content/comment/model";
+import {ref} from "vue";
+import {addComment} from "~/api/content/comment";
+
+const authStore = useAuthStore();
+const token = useCookie('token');
+
+// 加载状态
+const loading = ref<boolean>(false);
+
+const emit = defineEmits<{
+  (e: 'done'): void;
+}>();
+
+const props = defineProps<{
+  articleId?: number;
+}>();
+
+/**
+ * 提交评论表单
+ */
+const {form, resetFields} = useFormData<CommentParam>({
+  articleId: props.articleId,
+  content: '',
+  parentCommentId: undefined
+})
+
+/**
+ * 提交评论
+ */
+const submitComment = async () => {
+  if (!form.content) {
+    ElMessage.warning('评论内容不能为空！')
+    return;
+  }
+  loading.value = true;
+  addComment(form).then((res) => {
+    ElMessage.success(res);
+    loading.value = false;
+    resetFields()
+    emit('done');
+  }).catch((error) => {
+    ElMessage.error(error.message);
+    loading.value = false;
+  })
+}
+</script>
+
+<template>
+  <div class="bomaos-comment">
+    <div class="box">
+      <el-input
+          v-model="form.content"
+          type="textarea"
+          class="textarea"
+          placeholder="请输入评论内容..."
+          :rows="4"
+      />
+      <el-button
+          type="primary"
+          size="default"
+          :loading="loading"
+          @click="submitComment"
+          style="margin-top: 10px"
+      >
+        提交评论
+      </el-button>
+    </div>
+    <div v-if="!token" class="noLogin">
+      <span class="iconfont icon-show_yinsizhengce_fill"></span>
+      <div class="title">您还未登录</div>
+      <p>请登录后进行评论</p>
+      <div class="btn">
+        <el-button type="primary" plain @click="authStore.showModal = true">登录</el-button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style lang="less" scoped>
+.box {
+  .textarea {
+    background: rgb(247, 247, 247);
+    border: none;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+.bomaos-comment {
+  position: relative;
+
+  .noLogin {
+    border-radius: 3px;
+    width: 100%;
+  }
+
+  .noLogin {
+    align-items: center;
+    background-color: #f3f3f3;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    top: 0;
+    z-index: 5;
+
+    .title {
+      font-size: 22px;
+      margin-bottom: 5px;
+    }
+
+    p {
+      color: #aaa;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+  }
+}
+</style>
