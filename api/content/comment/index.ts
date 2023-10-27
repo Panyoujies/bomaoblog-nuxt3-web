@@ -43,11 +43,11 @@ export async function getComment(id?: number) {
  * 添加类别
  */
 export async function addComment(data: Comment) {
-  const res = await requestAxios.post<ApiResult<unknown>>('/content/comment', data);
-  if (res.data.code === 0) {
-    return res.data.message;
+  const res = await request.post<unknown>('/content/comment', { ...data }, {server: false});
+  if (res.code === 0) {
+    return res.message;
   }
-  return Promise.reject(new Error(res.data.message));
+  return Promise.reject(new Error(res.message));
 }
 
 /**
