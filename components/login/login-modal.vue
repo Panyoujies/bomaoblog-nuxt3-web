@@ -192,7 +192,7 @@ watch(() => props.visible, (visible) => {
                   type="primary"
                   :loading="loading"
                   @click="submit"
-                  style="background: #333d49; width: 100%"
+                  style="background: #333d49; border-color: #333d49; width: 100%"
               >
                 登录
               </el-button>
