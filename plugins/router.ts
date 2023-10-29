@@ -1,4 +1,4 @@
-import {Router} from "vue-router";
+import {Router} from 'vue-router';
 
 interface CustomRouter extends Router {
     running?: boolean;
@@ -11,6 +11,14 @@ interface CustomRouter extends Router {
  */
 export default defineNuxtPlugin((nuxtApp) => {
     const customRouter: CustomRouter = <CustomRouter>useNuxtApp().$router;
+
+    /**
+     * 修复路由跳转回到顶部
+     */
+    customRouter.options.scrollBehavior = () => {
+        return { left: 0, top: 0 }
+    }
+
     nuxtApp.hook("page:start", () => {
         customRouter.running = false;
         customRouter.beforeEach((to, _from, next) => {
