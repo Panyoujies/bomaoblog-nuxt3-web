@@ -14,7 +14,19 @@ const emit = defineEmits<{
 }>();
 
 const props = defineProps<{
+  /**
+   * 评论类型
+   * commentType: 'comment', 'reply'
+   */
+  commentType: 'comment' | 'reply';
+  /**
+   * 需要回复的文章ID
+   */
   articleId?: number;
+  /**
+   * 父级评论ID
+   */
+  parentCommentId?: number;
 }>();
 
 /**
@@ -23,7 +35,8 @@ const props = defineProps<{
 const {form, resetFields} = useFormData<CommentParam>({
   articleId: props.articleId,
   content: '',
-  parentCommentId: undefined
+  parentCommentId: props.commentType === 'comment' ? 0 : props.parentCommentId,
+  commentType: props.commentType === 'comment' ? 0 : 1
 })
 
 /**
@@ -54,8 +67,10 @@ const submitComment = async () => {
           v-model="form.content"
           type="textarea"
           class="textarea"
-          placeholder="请输入评论内容..."
-          :rows="4"
+          :placeholder="commentType === 'comment' ? '请输入评论内容...' : '请输入回复内容...'"
+          :rows="commentType === 'comment' ? 4 : 3"
+          show-word-limit
+          maxlength="1000"
       />
       <el-button
           type="primary"
@@ -64,13 +79,13 @@ const submitComment = async () => {
           @click="submitComment"
           style="margin-top: 10px"
       >
-        提交评论
+        {{ commentType === 'comment' ? '提交评论' : '提交回复' }}
       </el-button>
     </div>
     <div v-if="!token" class="noLogin">
       <div class="btn">
         <el-button type="primary" plain @click="authStore.showModal = true">登录 / 注册</el-button>
-        <div class="title">请登录后进行评论</div>
+        <div class="title">请登录后进行{{ commentType === 'comment' ? '评论' : '回复' }}</div>
       </div>
     </div>
   </div>

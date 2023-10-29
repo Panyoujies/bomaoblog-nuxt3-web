@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type {Article} from "~/api/content/article/model";
 
+const { $isMobile, $isDesktop } = useNuxtApp();
 const dayjs = useDayjs();
 const router = useRouter();
 
@@ -17,7 +18,7 @@ const props = defineProps<{
  * 新建标签页打开文章
  */
 const navigateToArticle = async () => {
-  await navigateTo(`/post/${props.article?.id}`, {open: {target: "_blank"}})
+  await navigateTo(`/post/${props.article?.id}`)
 };
 
 const navigateToCategory = async () => {
@@ -34,7 +35,7 @@ const navigateToCategory = async () => {
     <div v-if="article?.isPinned" class="pinned">
       置顶
     </div>
-    <div style="margin-right: 15px; display: inherit;">
+    <div v-if="$isDesktop()" style="margin-right: 15px; display: inherit;">
       <van-image
           width="130px"
           :height="100"

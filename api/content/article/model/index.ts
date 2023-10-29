@@ -1,4 +1,5 @@
 import {PageParam} from "@/api";
+import type {Tag} from "~/api/content/tag/model";
 
 export interface Article {
   id?: number;
@@ -44,6 +45,9 @@ export interface Article {
 
   // 视频地址")
   videoUrl?: string;
+
+  // 标签回显数据
+  initValue?: Tag[];
 
   // 租户id
   tenantId?: number;

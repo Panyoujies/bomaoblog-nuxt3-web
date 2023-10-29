@@ -35,14 +35,6 @@ const fetchData = async () => {
       tolal.value = res.data.value?.count || 0;
       articleList.value = res.data.value?.list || [];
       loading.value = false;
-      // 获取容器元素。请根据您的实际 DOM 结构来选择合适的选择器。
-      const container = document.querySelector('.bomaos-scrollbar-container');
-      if (container) {
-        container.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      }
     });
   } catch (error) {
     loading.value = false;
@@ -53,6 +45,11 @@ watch(() => route.query?.page, async (newPage, oldPage) => {
   if (newPage !== oldPage && newPage !== undefined) {
     params.page = Number(newPage);
     await fetchData();
+    // 获取容器元素。请根据您的实际 DOM 结构来选择合适的选择器。
+    const container = document.querySelector('.layout');
+    if (container) {
+      container.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 });
 

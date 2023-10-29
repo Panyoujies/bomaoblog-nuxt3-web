@@ -3,6 +3,7 @@ import {ref} from "vue";
 import {listCarousels} from "~/api/content/carousel";
 import type {Carousel} from "~/api/content/carousel/model";
 
+const { $isMobile, $isDesktop } = useNuxtApp();
 const dayjs = useDayjs();
 const spinning = ref<boolean>(true);
 const carouselList = ref<Carousel[]>([]);
@@ -23,12 +24,12 @@ onMounted(async () => {
 <template>
   <el-skeleton style="width: 100%" :loading="spinning" animated>
     <template #template>
-      <el-skeleton-item variant="image" style="width: 100%; height: 220px" />
+      <el-skeleton-item variant="image" :style="{width: '100%', height: $isMobile() ? '150px' : '220px'}" />
     </template>
     <template #default>
-      <el-carousel trigger="click" height="220px" style="border-radius: 3px;">
+      <el-carousel trigger="click" :height="$isMobile() ? '150px' : '220px'" style="border-radius: 3px;">
         <el-carousel-item v-for="item in carouselList" :key="item.id">
-          <div class="slider-info b2-radius" :style="{ height: '220px' }" style="width: 100%; border-radius: 2px">
+          <div class="slider-info b2-radius" :style="{ height: $isMobile() ? '150px' : '220px' }" style="width: 100%; border-radius: 2px">
             <nuxt-link class="link-block" v-if="item.externalLink && item.isExternalLink === 0" :to="item.externalLink as string"/>
             <a class="link-block" v-if="item.externalLink && item.isExternalLink === 1" :href="item.externalLink" target="_blank"></a>
             <picture class="picture">

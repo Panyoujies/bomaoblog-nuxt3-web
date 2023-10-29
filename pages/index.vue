@@ -3,6 +3,8 @@ import {ref, reactive} from "vue";
 import {pageArticles} from "~/api/content/article";
 import type {Article, ArticleParam} from "~/api/content/article/model";
 
+const { $isMobile, $isDesktop } = useNuxtApp();
+
 const articleList = ref<Article[]>([]);
 const tolal = ref<number>(0);
 const loading = ref<boolean>(false);
@@ -25,14 +27,6 @@ const fetchData = async () => {
       articleList.value = res.data.value?.list || [];
       tolal.value = res.data.value?.count || 0;
       loading.value = false;
-      // 获取容器元素。请根据您的实际 DOM 结构来选择合适的选择器。
-      const container = document.querySelector('.bomaos-scrollbar-container');
-      if (container) {
-        container.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      }
     });
   } catch (error) {
     loading.value = false;
@@ -43,6 +37,11 @@ watch(() => route.query?.page, async (newPage, oldPage) => {
   if (newPage !== oldPage && newPage !== undefined) {
     params.page = Number(newPage);
     await fetchData();
+    // 获取容器元素。请根据您的实际 DOM 结构来选择合适的选择器。
+    const container = document.querySelector('.layout');
+    if (container) {
+      container.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 });
 
@@ -74,11 +73,11 @@ useHead({
         <div style="margin-bottom: 15px">
           <el-row :gutter="15">
             <el-col :xs="24" :sm="24" :md="17" :lg="17" :xl="17">
-              <el-card class="bomaos-card" :body-style="{ padding: '10px', height: '220px' }">
+              <el-card class="bomaos-card" :body-style="{ padding: '10px', height: $isMobile() ? '150px' : '220px' }">
                 <carousel />
               </el-card>
             </el-col>
-            <el-col :xs="24" :sm="24" :md="7" :lg="7" :xl="7">
+            <el-col v-if="$isDesktop()" :xs="24" :sm="24" :md="7" :lg="7" :xl="7">
               <el-card class="bomaos-card" :body-style="{ padding: '10px', height: '220px' }">
                 <van-image
                     width="100%"
@@ -132,7 +131,7 @@ useHead({
               </div>
             </el-card>
           </el-col>
-          <el-col :xs="24" :sm="24" :md="7" :lg="7" :xl="7">
+          <el-col v-if="$isDesktop()" :xs="24" :sm="24" :md="7" :lg="7" :xl="7">
             <!-- 相关推荐 -->
             <common-hot-post />
           </el-col>

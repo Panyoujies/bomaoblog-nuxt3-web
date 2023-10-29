@@ -21,6 +21,9 @@ import type {Article} from "~/api/content/article/model";
 import type {CommentDto, CommentParam} from "~/api/content/comment/model";
 import {pageComments} from "~/api/content/comment";
 
+const { $isMobile, $isDesktop } = useNuxtApp();
+const dayjs = useDayjs();
+
 // 视频组件
 let player: PresetPlayer | null = null;
 
@@ -102,7 +105,7 @@ onUnmounted(() => {
  */
 const commentParams = reactive<CommentParam>({
   page: 1,
-  limit: 5
+  limit: 10
 });
 
 const commentList = ref<CommentDto[]>([]);
@@ -257,44 +260,74 @@ useHead({
                 v-if="article.isVideo == 1"
                 class="bomaos-card"
                 style="margin-bottom: 15px; min-height: auto"
+                :body-style="{ padding: $isMobile() ? '15px' : '20px' }"
             >
-              <div style="min-height: 312px; background-color: #eaeaea">
+              <div style="background-color: #eaeaea" :style="{ minHeight: $isMobile() ? '163px' : '312px' }">
                 <div id="video"></div>
               </div>
             </el-card>
-            <el-card class="bomaos-card" :body-style="{ padding: '20px' }">
-              <div class="header">
-                <span class="title">{{ article.title }}</span>
-                <div style="margin-top: 5px; color: #666; font-size: 15px">
-                  <el-space wrap>
-                    <div>{{ article.createTime }}</div>
-                    <van-divider vertical style="margin: 0" :hairline="false"/>
-                    <div style="display: flex; align-items: center;">
-                      <Icon name="octicon:eye" style="font-size: 15px"/>
-                      <span style="margin-left: 5px">{{ article.seeNumber }}</span>
-                    </div>
-                  </el-space>
+            <el-card class="bomaos-card" :body-style="{ padding: '0px' }">
+              <div :style="{ padding: $isMobile() ? '15px' : '20px' }">
+                <div class="header">
+                  <span class="title" :style="{ fontSize: $isMobile() ? '18px' : '25px' }">{{ article.title }}</span>
+                  <div style="margin-top: 5px; color: #666; font-size: 15px">
+                    <el-space wrap>
+                      <div>{{ article.createTime }}</div>
+                      <van-divider vertical style="margin: 0" :hairline="false"/>
+                      <div style="display: flex; align-items: center;">
+                        <Icon name="octicon:eye" style="font-size: 15px"/>
+                        <span style="margin-left: 5px">{{ article.seeNumber }}</span>
+                      </div>
+                    </el-space>
+                  </div>
+                </div>
+                <div ref="textRef">
+                  <div class="markdown-body" v-html="text"></div>
                 </div>
               </div>
-              <div ref="textRef">
-                <div class="markdown-body" v-html="text"></div>
+              <div class="bomaos-card-footer" :style="{ padding: $isMobile() ? '15px' : '20px' }">
+                <div>
+                  <el-space wrap>
+                    <el-tag
+                        v-for="tag in article.initValue"
+                        :key="tag.tagId"
+                        class="mx-1"
+                        type="success"
+                        effect="light"
+                    >
+                      {{ tag.tagName }}
+                    </el-tag>
+                  </el-space>
+                </div>
+                <div class="time">
+                  更新于 {{ dayjs(article.updateTime).fromNow() }}
+                </div>
               </div>
             </el-card>
             <div class="comment">
-              <el-card class="bomaos-card" :body-style="{ padding: '5px 20px 20px 20px' }">
+              <el-card class="bomaos-card" :body-style="{ padding: $isMobile() ? '5px 15px 15px 15px' : '5px 20px 20px 20px' }">
                 <template #header>
                   <div style="display: flex; align-items: flex-end; margin-bottom: 20px">
                     <h2 style="line-height: 1.1; margin-right: 10px">评论</h2>
                     <span style="color: #666666">Comment</span>
                   </div>
                   <!-- 评论组件 -->
-                  <comment-submit :article-id="article.id" @done="reload"/>
+                  <comment-submit comment-type="comment" :article-id="article.id" @done="reload"/>
                 </template>
                 <div>
                   <el-empty v-if="state" description="暂无评论" :image-size="70"/>
                   <div v-else>
-                    <comment-item v-for="item in commentList" :key="item.commentId" :comment="item"/>
-                    <div v-if="!state" style="padding-top: 20px; display: flex; justify-content: center;">
+                    <!-- 评论Item组件 -->
+                    <comment-item
+                        v-for="item in commentList"
+                        :key="item.commentId"
+                        :comment="item"
+                    />
+                    <div
+                        v-if="!state"
+                        style=" display: flex; justify-content: center;"
+                        :style="{ paddingTop: $isMobile() ? '15px' : '20px' }"
+                    >
                       <el-button link :loading="commentLoading" :disabled="disabled" @click="handleInfiniteOnLoad">{{ disabled ? '加载完成' : '加载更多' }}</el-button>
                     </div>
                   </div>
@@ -302,7 +335,7 @@ useHead({
               </el-card>
             </div>
           </el-col>
-          <el-col :xs="24" :sm="24" :md="7" :lg="7" :xl="7">
+          <el-col v-if="$isDesktop()" :xs="24" :sm="24" :md="7" :lg="7" :xl="7">
             <!-- 相关推荐 -->
             <common-hot-post />
           </el-col>
@@ -332,15 +365,24 @@ useHead({
 }
 
 .bomaos-card {
-
   .header {
     margin-bottom: 30px;
-
     .title {
       font-size: 25px;
       font-weight: bold;
     }
+  }
 
+  .bomaos-card-footer {
+    border-top: 1px solid #f0f0f0;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .time {
+      color: #666;
+    }
   }
 }
 </style>

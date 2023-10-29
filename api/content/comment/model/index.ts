@@ -11,7 +11,11 @@ export interface Comment {
   // 会员id")
   memberId?: number;
 
+  // 评论内容
   content?: string;
+
+  // 点赞数量
+  likeCount?: number;
 
   // 父评论ID")
   parentCommentId?: number;
@@ -30,6 +34,9 @@ export interface CommentDto {
   // 自增id")
   commentId?: number;
 
+  // 评论类型
+  commentType?: number;
+
   // 文章id")
   articleId?: number;
 
@@ -38,6 +45,9 @@ export interface CommentDto {
 
   // 内容
   content?: string;
+
+  // 点赞数量
+  likeCount?: number;
 
   // 父评论ID")
   parentCommentId?: number;
@@ -50,6 +60,9 @@ export interface CommentDto {
 
   // 会员信息
   member?: Member;
+
+  // 子回复
+  children?: CommentDto[];
 }
 
 /**
@@ -59,6 +72,9 @@ export interface CommentParam extends PageParam {
   // 自增id")
   commentId?: number;
 
+  // 评论类型
+  commentType?: number;
+
   // 文章id")
   articleId?: number;
 
@@ -67,6 +83,9 @@ export interface CommentParam extends PageParam {
 
   // 评论内容
   content?: string;
+
+  // 点赞数量
+  likeCount?: number;
 
   // 父评论ID")
   parentCommentId?: number;
