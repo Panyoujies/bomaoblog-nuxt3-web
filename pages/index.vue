@@ -23,11 +23,11 @@ params.page = Number(page) || 1;
 
 const fetchData = async () => {
   try {
-    await useAsyncData("read_index_article", async () => pageArticles(params)).then((res) => {
-      articleList.value = res.data.value?.list || [];
-      tolal.value = res.data.value?.count || 0;
+    pageArticles(params).then((res) => {
+      articleList.value = res?.list || [];
+      tolal.value = res?.count || 0;
       loading.value = false;
-    });
+    })
   } catch (error) {
     loading.value = false;
   }
@@ -70,7 +70,7 @@ useHead({
   <div class="container">
     <div class="yuqi-layout">
       <div style="min-height: calc(100vh - 168px);">
-        <div style="margin-bottom: 15px">
+<!--        <div style="margin-bottom: 15px">
           <el-row :gutter="15">
             <el-col :xs="24" :sm="24" :md="17" :lg="17" :xl="17">
               <el-card class="bomaos-card" :body-style="{ padding: '10px', height: $isMobile() ? '150px' : '220px' }">
@@ -111,7 +111,7 @@ useHead({
               </el-card>
             </el-col>
           </el-row>
-        </div>
+        </div>-->
         <el-row :gutter="15">
           <el-col :xs="24" :sm="24" :md="17" :lg="17" :xl="17">
             <el-card class="bomaos-card" :body-style="{ padding: 0 }" style="overflow: inherit;">

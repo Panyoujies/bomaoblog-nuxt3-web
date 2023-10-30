@@ -4,15 +4,23 @@ import {listCategorys} from "~/api/content/category";
 import type {Category} from "~/api/content/category/model";
 
 const { $isMobile } = useNuxtApp();
+const { info } = storeToRefs(useMemberStore())
+
 const categoryList = ref<Category[]>([]);
 
 /**
  * 获取模特信息
  * @param id
  */
-await useAsyncData("read_categorys", async () => listCategorys()).then((d) => {
-  categoryList.value.push(...d.data.value)
+await listCategorys().then((d) => {
+  categoryList.value.push(...d)
 })
+
+/* 抽屉 */
+const visible = ref<boolean>(false);
+const showDrawer = () => {
+  visible.value = true;
+};
 </script>
 
 <template>
@@ -39,9 +47,6 @@ await useAsyncData("read_categorys", async () => listCategorys()).then((d) => {
                 </div>
               </template>
               <el-divider direction="vertical" style="height: 15px"/>
-              <div class="bomaos-nav-item">
-                <nuxt-link to="/about" active-class="bomaos-this">关于我们</nuxt-link>
-              </div>
             </div>
           </div>
           <div class="bomaos-avatar" v-if="!$isMobile()">
@@ -51,11 +56,18 @@ await useAsyncData("read_categorys", async () => listCategorys()).then((d) => {
               </nuxt-link>
             </div>
           </div>
+          <div v-if="$isMobile()" style="line-height: 66px; display: flex; align-items: center;">
+            <div class="author" @click="showDrawer">
+              <el-avatar :size="35" :src="info?.avatar ? info.avatar : '/assets/images/avatar.png'"/>
+              <svg style="margin-left: 2px" viewBox="0 0 230 1024" xmlns="http://www.w3.org/2000/svg" width="10" height="30">
+                <path stroke="null" id="svg_1" fill="#444444" d="m129.12494,151.91668l96.75003,0l0,126.89706l-96.75003,0l0,-126.89706zm0,296.09314l96.75003,0l0,126.89706l-96.75003,0l0,-126.89706zm0,296.09314l96.75003,0l0,126.89706l-96.75003,0l0,-126.89706z"/>
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
     </header>
-
-
+    <common-header-drawer v-model:visible="visible" />
   </div>
 </template>
 
