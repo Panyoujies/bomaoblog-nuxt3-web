@@ -188,6 +188,7 @@ useHead({
                       v-model:current-page="params.page"
                       layout="prev, pager, next"
                       :total="tolal"
+                      :default-page-size="8"
                       @current-change="switchPage"
                   />
                   <div class="tolal">Total {{ tolal }}</div>

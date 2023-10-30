@@ -124,6 +124,7 @@ useHead({
                     small
                     v-model:current-page="params.page"
                     layout="prev, pager, next"
+                    :default-page-size="8"
                     :total="tolal"
                     @current-change="switchPage"
                 />
