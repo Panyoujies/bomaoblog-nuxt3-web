@@ -32,9 +32,6 @@ const navigateToCategory = async () => {
       :style="{padding: '15px'}"
       @click="navigateToArticle"
   >
-    <div v-if="article?.isPinned" class="pinned">
-      置顶
-    </div>
     <div v-if="$isDesktop()" style="margin-right: 15px; display: inherit;">
       <van-image
           width="130px"
@@ -59,8 +56,13 @@ const navigateToCategory = async () => {
     </div>
     <div class="van-cell__title">
       <div class="title">
-        <div class="bomaos-ellipsis">
-          <span :style="{ fontSize: '18px'}">{{ article.title as string }}</span>
+        <div style="display: flex;     align-items: center;">
+          <div v-if="article?.isPinned" class="pinned">
+            置顶
+          </div>
+          <div class="bomaos-ellipsis">
+            <span :style="{ fontSize: '18px'}">{{ article.title as string }}</span>
+          </div>
         </div>
         <div class="bomaos-ellipsis">
           <div style="margin-top: 2px; color: #555;">{{ article.summary }}</div>
@@ -98,18 +100,16 @@ const navigateToCategory = async () => {
   cursor: pointer;
 
   .pinned {
-    z-index: 100;
+    line-height: 1.6;
     font-size: 12px;
     color: #fff;
-    position: absolute;
-    top: 20px;
-    left: -5px;
     padding: 0 8px;
     background: linear-gradient(90deg,#409EFF 0, rgba(64, 158, 255, 0.76));
     display: flex;
     align-items: center;
     flex-direction: row;
     border-radius: 3px;
+    margin-right: 5px;
   }
 
   &:nth-last-child(1) {

@@ -21,10 +21,13 @@
     "nuxt-icon": "^0.5.0",
     "sass": "^1.69.3",
     "scss": "^0.2.4",
+    "unplugin-auto-import": "^0.16.7",
+    "unplugin-vue-components": "^0.25.2",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@css-render/vue3-ssr": "^0.15.12",
     "@pinia-plugin-persistedstate/nuxt": "^1.1.2",
     "@pinia/nuxt": "^0.5.0",
     "@traptitech/markdown-it-katex": "^3.6.0",
@@ -33,14 +36,17 @@
     "@vant/nuxt": "^1.0.3",
     "@vueuse/core": "^10.5.0",
     "@vueuse/nuxt": "^10.5.0",
-    "dayjs-nuxt": "^2.1.1",
     "axios": "^1.5.0",
+    "date-fns-tz": "^2.0.0",
+    "dayjs-nuxt": "^2.1.1",
     "highlight.js": "^11.9.0",
     "markdown-it": "^13.0.2",
     "markdown-it-link-attributes": "^4.0.1",
     "markdown-it-toc-and-anchor": "^4.2.0",
+    "naive-ui": "^2.35.0",
     "pinia": "^2.1.7",
     "vant": "^4.7.1",
+    "vueuc": "^0.4.51",
     "xgplayer": "^3.0.9",
     "xgplayer-mp4": "^3.0.9"
   }

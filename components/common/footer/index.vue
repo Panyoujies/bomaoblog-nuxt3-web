@@ -4,7 +4,7 @@ const { $isMobile, $isDesktop } = useNuxtApp();
 
 <template>
   <footer class="bg-white">
-    <div class="container">
+    <div class="container" :style="{padding: $isMobile() ? '0 15px' : ''}">
       <div class="context">
         <div>
           © 2017-2023 鱼七博客

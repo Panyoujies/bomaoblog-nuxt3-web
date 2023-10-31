@@ -95,111 +95,97 @@ useHead({
 
 <template>
   <div>
-      <nav>
-        <div class="navBox">
-          <div class="container">
-            <el-row style="row-gap: 15px;" :gutter="15">
-              <el-col :xs="24" :sm="24" :md="20" :lg="20" :xl="20">
-                <!--用户-->
-                <div class="nav-userBox">
-                  <div class="btn-img">
-                    <div class="van-circle" style="width: 120px; height: 120px;">
-                      <svg viewBox="0 0 1015 1015">
-                        <defs>
-                          <linearGradient id="van-circle-1" x1="100%" y1="0%" x2="0%" y2="0%">
-                            <stop offset="0%" stop-color="#8fdae4"></stop>
-                            <stop offset="100%" stop-color="#fa7399"></stop>
-                          </linearGradient>
-                        </defs>
-                        <path class="van-circle__layer" d="M 507.5 507.5 m 0, -500 a 500, 500 0 1, 1 0, 1000 a 500, 500 0 1, 1 0, -1000" style="fill: none; stroke-width: 17px;"></path>
-                        <path d="M 507.5 507.5 m 0, -500 a 500, 500 0 1, 1 0, 1000 a 500, 500 0 1, 1 0, -1000" class="van-circle__hover" stroke="url(#van-circle-1)" style="stroke: url(&quot;#van-circle-1&quot;); stroke-width: 18px; stroke-dasharray: 3140px, 3140px;"></path>
-                      </svg>
-                      <div class="btn-img-border">
-                        <van-image
-                            round
-                            width="110px"
-                            height="110px"
-                            fit="cover"
-                            :src="category.cover as string"
-                        >
-                          <template v-slot:loading>
-                            <van-loading type="spinner" size="50" />
-                          </template>
-                        </van-image>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="user-wrap">
-                    <div class="username">{{ category.name }}</div>
-                    <ul class="user-data">
-                      <li>
-                        <span>{{ NumberFormatter.formatNumber(category.seeNumber) }}</span>
-                        <div>访问</div>
-                      </li>
-                      <el-divider direction="vertical" style="margin: 0 15px; height: 15px"/>
-                      <li>
-                        <span>{{ category.articleNumber }}</span>
-                        <div>文章</div>
-                      </li>
-                      <el-divider direction="vertical" style="margin: 0 15px; height: 15px"/>
-                      <li>
-                        <span>0</span>
-                        <div>收藏</div>
-                      </li>
-                    </ul>
-                    <p class="user-txt" id="us-remark">
-                      <span>{{ category.summary }}</span>
-                    </p>
+    <nav>
+      <div class="navBox">
+        <el-row style="row-gap: 15px;" :gutter="15">
+          <el-col :xs="24" :sm="24" :md="20" :lg="20" :xl="20">
+            <!--用户-->
+            <div class="nav-userBox">
+              <div class="btn-img">
+                <div class="van-circle" style="width: 120px; height: 120px;">
+                  <svg viewBox="0 0 1015 1015">
+                    <defs>
+                      <linearGradient id="van-circle-1" x1="100%" y1="0%" x2="0%" y2="0%">
+                        <stop offset="0%" stop-color="#8fdae4"></stop>
+                        <stop offset="100%" stop-color="#fa7399"></stop>
+                      </linearGradient>
+                    </defs>
+                    <path class="van-circle__layer" d="M 507.5 507.5 m 0, -500 a 500, 500 0 1, 1 0, 1000 a 500, 500 0 1, 1 0, -1000" style="fill: none; stroke-width: 17px;"></path>
+                    <path d="M 507.5 507.5 m 0, -500 a 500, 500 0 1, 1 0, 1000 a 500, 500 0 1, 1 0, -1000" class="van-circle__hover" stroke="url(#van-circle-1)" style="stroke: url(&quot;#van-circle-1&quot;); stroke-width: 18px; stroke-dasharray: 3140px, 3140px;"></path>
+                  </svg>
+                  <div class="btn-img-border">
+                    <van-image
+                        round
+                        width="110px"
+                        height="110px"
+                        fit="cover"
+                        :src="category.cover as string"
+                    >
+                      <template v-slot:loading>
+                        <van-loading type="spinner" size="50" />
+                      </template>
+                    </van-image>
                   </div>
                 </div>
-              </el-col>
-              <el-col :xs="24" :sm="24" :md="4" :lg="4" :xl="4">
-                <div style="display: inline-flex; align-items: center; gap: 15px; width: 100%;">
-                  <el-button
-                      type="primary"
-                      size="large"
-                      round
-                      style="width: 100%;"
-                  >
-                    <template #icon>
-                      <el-icon><Star /></el-icon>
-                    </template>
-                    收藏
-                  </el-button>
-                </div>
-              </el-col>
-            </el-row>
-          </div>
+              </div>
+              <div class="user-wrap">
+                <div class="username">{{ category.name }}</div>
+                <ul class="user-data">
+                  <li>
+                    <span>{{ NumberFormatter.formatNumber(category.seeNumber) }}</span>
+                    <div>访问</div>
+                  </li>
+                  <el-divider direction="vertical" style="margin: 0 15px; height: 15px"/>
+                  <li>
+                    <span>{{ category.articleNumber }}</span>
+                    <div>文章</div>
+                  </li>
+                  <el-divider direction="vertical" style="margin: 0 15px; height: 15px"/>
+                  <li>
+                    <span>0</span>
+                    <div>收藏</div>
+                  </li>
+                </ul>
+                <p class="user-txt" id="us-remark">
+                  <span>{{ category.summary }}</span>
+                </p>
+              </div>
+            </div>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="4" :lg="4" :xl="4">
+            <div style="display: inline-flex; align-items: center; gap: 15px; width: 100%;">
+              <el-button
+                  type="primary"
+                  size="large"
+                  round
+                  style="width: 100%;"
+              >
+                <template #icon>
+                  <el-icon><Star /></el-icon>
+                </template>
+                收藏
+              </el-button>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+    </nav>
+    <div class="yuqi-layout">
+      <div>
+        <div class="article-tem" v-loading="loading">
+          <article-item v-for="item in articleList" :key="item.id" :article="item"/>
         </div>
-      </nav>
-    <div class="container">
-      <div class="yuqi-layout">
-        <div style="min-height: calc(100vh - 329px);">
-          <el-row :gutter="15">
-            <el-col :xs="24" :sm="24" :md="17" :lg="17" :xl="17">
-              <el-card class="bomaos-card" :body-style="{ padding: 0 }" style="overflow: inherit;">
-                <div class="article-tem" v-loading="loading">
-                  <article-item v-for="item in articleList" :key="item.id" :article="item"/>
-                </div>
-                <div class="pagination">
-                  <el-pagination
-                      background
-                      small
-                      v-model:current-page="params.page"
-                      layout="prev, pager, next"
-                      :total="tolal"
-                      :default-page-size="8"
-                      @current-change="switchPage"
-                  />
-                  <div class="tolal">Total {{ tolal }}</div>
-                </div>
-              </el-card>
-            </el-col>
-            <el-col :xs="24" :sm="24" :md="7" :lg="7" :xl="7">
-              <!-- 相关推荐 -->
-              <common-hot-post />
-            </el-col>
-          </el-row>
+        <div class="pagination">
+          <el-pagination
+              background
+              small
+              v-model:current-page="params.page"
+              layout="prev, pager, next"
+              :total="tolal"
+              :default-page-size="8"
+              @current-change="switchPage"
+          />
+          <div class="tolal">Total {{ tolal }}</div>
         </div>
       </div>
     </div>
@@ -210,7 +196,7 @@ useHead({
 nav {
   .navBox {
     background: #ffffff;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
+    border-bottom: 1px solid #f0f0f0;
     width: 100%;
     color: #FFFFFF;
     position: relative;
@@ -222,6 +208,7 @@ nav {
       display: flex;
       align-items: flex-start;
       color: #333;
+      margin-left: 15px;
     }
 
     .user-wrap {

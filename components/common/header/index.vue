@@ -24,80 +24,51 @@ const showDrawer = () => {
 </script>
 
 <template>
-  <div class="bomaos-main">
-    <header class="main-header main-header visible">
-      <div class="container bomaos">
-        <div class="bomaos-header">
-          <nuxt-link class="bomaos-logo" to="/" style="letter-spacing: 0.2px;">
-            <img class="icon" width="35" height="35" src="~/assets/images/logo.svg">
-            <span>鱼七博客</span>
-          </nuxt-link>
-        </div>
-        <div class="bomaos-header">
-          <div v-if="!$isMobile()" style="line-height: 66px; display: flex; align-items: center; margin-left: 15px">
-            <div class="bomaos-nav">
-              <div class="bomaos-nav-item">
-                <nuxt-link to="/" active-class="bomaos-this">首页文章</nuxt-link>
-              </div>
-              <template v-for="item in categoryList" :key="item.id">
-                <el-divider direction="vertical" style="height: 15px"/>
-                <div class="bomaos-nav-item">
-                  <nuxt-link :to="'/' + item.alias" active-class="bomaos-this">{{ item.name }}</nuxt-link>
-                  <!--              <small class="b2small">New</small>-->
-                </div>
-              </template>
-              <el-divider direction="vertical" style="height: 15px"/>
-            </div>
+  <div class="container bomaos" :style="{padding: $isMobile() ? '0 15px' : ''}">
+    <div class="bomaos-header">
+      <nuxt-link class="bomaos-logo" to="/" style="letter-spacing: 0.2px;">
+        <img class="icon" width="35" height="35" src="~/assets/images/logo.svg">
+        <span>鱼七博客</span>
+      </nuxt-link>
+    </div>
+    <div class="bomaos-header">
+      <div v-if="!$isMobile()" style="line-height: 66px; display: flex; align-items: center; margin-left: 15px">
+        <div class="bomaos-nav">
+          <div class="bomaos-nav-item">
+            <nuxt-link to="/" active-class="bomaos-this">首页文章</nuxt-link>
           </div>
-          <div class="bomaos-avatar" v-if="!$isMobile()">
-            <div>
-              <nuxt-link style="display: flex; align-items: center;">
-                <el-avatar :size="35" src="/assets/images/avatar.png"/>
-              </nuxt-link>
+          <template v-for="item in categoryList" :key="item.id">
+            <el-divider direction="vertical" style="height: 15px"/>
+            <div class="bomaos-nav-item">
+              <nuxt-link :to="'/' + item.alias" active-class="bomaos-this">{{ item.name }}</nuxt-link>
+              <!--              <small class="b2small">New</small>-->
             </div>
-          </div>
-          <div v-if="$isMobile()" style="line-height: 66px; display: flex; align-items: center;">
-            <div class="author" @click="showDrawer">
-              <el-avatar :size="35" :src="info?.avatar ? info.avatar : '/assets/images/avatar.png'"/>
-              <svg style="margin-left: 2px" viewBox="0 0 230 1024" xmlns="http://www.w3.org/2000/svg" width="10" height="30">
-                <path stroke="null" id="svg_1" fill="#444444" d="m129.12494,151.91668l96.75003,0l0,126.89706l-96.75003,0l0,-126.89706zm0,296.09314l96.75003,0l0,126.89706l-96.75003,0l0,-126.89706zm0,296.09314l96.75003,0l0,126.89706l-96.75003,0l0,-126.89706z"/>
-              </svg>
-            </div>
-          </div>
+          </template>
+          <el-divider direction="vertical" style="height: 15px"/>
         </div>
       </div>
-    </header>
+      <div class="bomaos-avatar" v-if="!$isMobile()">
+        <div>
+          <nuxt-link style="display: flex; align-items: center;">
+            <el-avatar :size="35" src="/assets/images/avatar.png"/>
+          </nuxt-link>
+        </div>
+      </div>
+      <div v-if="$isMobile()" style="line-height: 66px; display: flex; align-items: center;">
+        <div class="author" @click="showDrawer">
+          <el-avatar :size="35" :src="info?.avatar ? info.avatar : '/assets/images/avatar.png'"/>
+          <svg style="margin-left: 2px" viewBox="0 0 230 1024" xmlns="http://www.w3.org/2000/svg" width="10" height="30">
+            <path stroke="null" id="svg_1" fill="#444444" d="m129.12494,151.91668l96.75003,0l0,126.89706l-96.75003,0l0,-126.89706zm0,296.09314l96.75003,0l0,126.89706l-96.75003,0l0,-126.89706zm0,296.09314l96.75003,0l0,126.89706l-96.75003,0l0,-126.89706z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
     <common-header-drawer v-model:visible="visible" />
   </div>
+
 </template>
 
 <style scoped lang="less">
-.bomaos-main {
-  position: relative;
-  height: 66px;
-
-  .main-header {
-    background: white;
-    border-bottom: 1px solid #f0f0f0;
-    color: #909090;
-    height: 66px;
-    z-index: 250;
-  }
-
-  .main-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    transition: transform .2s;
-    transform: translate3d(0,-100%,0);
-
-    &.visible {
-      transform: translateZ(0);
-    }
-  }
-}
-
 .bomaos {
   display: flex;
   align-items: center;

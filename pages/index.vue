@@ -67,76 +67,22 @@ useHead({
 </script>
 
 <template>
-  <div class="container">
-    <div class="yuqi-layout">
-      <div style="min-height: calc(100vh - 168px);">
-<!--        <div style="margin-bottom: 15px">
-          <el-row :gutter="15">
-            <el-col :xs="24" :sm="24" :md="17" :lg="17" :xl="17">
-              <el-card class="bomaos-card" :body-style="{ padding: '10px', height: $isMobile() ? '150px' : '220px' }">
-                <carousel />
-              </el-card>
-            </el-col>
-            <el-col v-if="$isDesktop()" :xs="24" :sm="24" :md="7" :lg="7" :xl="7">
-              <el-card class="bomaos-card" :body-style="{ padding: '10px', height: '220px' }">
-                <van-image
-                    width="100%"
-                    :height="145"
-                    round
-                    fit="cover"
-                    style="border-radius: 3px"
-                    src="/assets/images/bomaos-banner.png"
-                    :lazy-load="true"
-                >
-                  <template v-slot:loading>
-                    <van-loading type="spinner" size="40" />
-                  </template>
-                </van-image>
-                <div class="bomaos-info">
-                  <div class="item">
-                    <div>文章</div>
-                    <span>234</span>
-                  </div>
-                  <van-divider vertical style="height: 1.3em; margin: 0px; border-color: rgb(212 212 212)" :hairline="false"/>
-                  <div class="item">
-                    <div>评论</div>
-                    <span>234</span>
-                  </div>
-                  <van-divider vertical style="height: 1.3em; margin: 0px; border-color: rgb(212 212 212)" :hairline="false"/>
-                  <div class="item">
-                    <div>用户</div>
-                    <span>234</span>
-                  </div>
-                </div>
-              </el-card>
-            </el-col>
-          </el-row>
-        </div>-->
-        <el-row :gutter="15">
-          <el-col :xs="24" :sm="24" :md="17" :lg="17" :xl="17">
-            <el-card class="bomaos-card" :body-style="{ padding: 0 }" style="overflow: inherit;">
-              <div class="article-tem" v-loading="loading">
-                <article-item v-for="item in articleList" :key="item.id" :article="item"/>
-              </div>
-              <div class="pagination">
-                <el-pagination
-                    background
-                    small
-                    v-model:current-page="params.page"
-                    layout="prev, pager, next"
-                    :default-page-size="8"
-                    :total="tolal"
-                    @current-change="switchPage"
-                />
-                <div class="tolal">Total {{ tolal }}</div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col v-if="$isDesktop()" :xs="24" :sm="24" :md="7" :lg="7" :xl="7">
-            <!-- 相关推荐 -->
-            <common-hot-post />
-          </el-col>
-        </el-row>
+  <div class="yuqi-layout">
+    <div>
+      <div class="article-item" v-loading="loading">
+        <article-item v-for="item in articleList" :key="item.id" :article="item"/>
+      </div>
+      <div class="pagination">
+        <el-pagination
+            background
+            small
+            v-model:current-page="params.page"
+            layout="prev, pager, next"
+            :default-page-size="8"
+            :total="tolal"
+            @current-change="switchPage"
+        />
+        <div class="tolal">Total {{ tolal }}</div>
       </div>
     </div>
   </div>
@@ -149,7 +95,6 @@ useHead({
   border: 1px solid #efefef;
   border-radius: 3px;
   padding: 10px;
-  display: flex;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
