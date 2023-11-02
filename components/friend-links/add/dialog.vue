@@ -22,11 +22,11 @@ const updateVisible = (value: boolean) => {
 };
 
 const handleClose = (done: () => void) => {
+  ruleFormRef.value?.resetFields()
   updateVisible(false);
 }
 
-
-const { form } = useFormData<FriendLinks>({
+const { form, resetFields } = useFormData<FriendLinks>({
   name: '',
   url: '',
   iconUrl: '',
@@ -66,10 +66,11 @@ const submitForm = (formEl: FormInstance | undefined) => {
   formEl.validate((valid) => {
     if (valid) {
       loading.value = true;
-      console.log('submit!');
       addFriendLinks(form).then((res) => {
         ElMessage.success(res);
         loading.value = false;
+        formEl.resetFields()
+        updateVisible(false);
       }).catch((error) => {
         ElMessage.error(error.message);
       })
@@ -113,12 +114,12 @@ const resetForm = (formEl: FormInstance | undefined) => {
         <el-input v-model="form.qq" placeholder="请输入站长QQ" autocomplete="off" />
       </el-form-item>
       <el-form-item label="网站介绍" prop="description" style="margin-bottom: 0px;">
-        <el-input v-model="form.description" type="textarea" placeholder="友情链接介绍" autocomplete="off" />
+        <el-input v-model="form.description" type="textarea" :rows="3" placeholder="友情链接介绍" autocomplete="off" />
       </el-form-item>
     </el-form>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="resetForm(ruleFormRef)">取消</el-button>
+        <el-button @click="updateVisible(false)">取消</el-button>
         <el-button :loading="loading" type="primary" @click="submitForm(ruleFormRef)">
           提交
         </el-button>

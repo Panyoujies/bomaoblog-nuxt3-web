@@ -29,7 +29,6 @@ params.page = Number(page) || 1;
 const fetchData = async () => {
   try {
     pageFriendLinkss(params).then((res) => {
-      console.log(res)
       friendLinksList.value = res?.list || [];
       tolal.value = res?.count || 0;
       loading.value = false;
@@ -88,7 +87,7 @@ useHead({
       </div>
       <div class="yuqi-layout-body">
         <div class="yuqi-item" v-loading="loading" :style="{margin: $isMobile() ? '15px' : '15px 0 15px 15px'}">
-          <el-row style="row-gap: 15px;" :gutter="15">
+          <el-row v-if="friendLinksList.length != 0" style="row-gap: 15px;" :gutter="15">
             <el-col v-for="item in friendLinksList" :key="item.id" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
               <div class="friend-links-item">
                 <a class="content" :href="item.url" target="_blank">
@@ -115,9 +114,10 @@ useHead({
               </div>
             </el-col>
           </el-row>
+          <el-empty v-else :image-size="70" description="暂无友链"/>
         </div>
       </div>
-      <div class="yuqi-layout-footer">
+      <div v-if="friendLinksList.length != 0" class="yuqi-layout-footer">
         <div class="pagination">
           <el-pagination
               background
@@ -132,7 +132,8 @@ useHead({
         </div>
       </div>
     </div>
-    <friend-links-add v-model:visible="showVisible" />
+    <friend-links-add-dialog v-if="$isDesktop()" v-model:visible="showVisible" />
+    <friend-links-add-drawer v-if="$isMobile()" v-model:visible="showVisible" />
   </div>
 </template>
 
