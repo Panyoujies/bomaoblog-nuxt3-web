@@ -38,7 +38,7 @@ export default defineNuxtConfig({
   },
   css: ['~/assets/global.less', "element-plus/dist/index.css"],
   experimental: {
-    inlineSSRStyles: true,
+    inlineSSRStyles: false,
     asyncContext: true
   },
   build: {
@@ -56,7 +56,7 @@ export default defineNuxtConfig({
     optimizeDeps: {
       include:
           process.env.NODE_ENV === 'development'
-              ? ['naive-ui', 'vueuc', 'date-fns-tz/esm/formatInTimeZone']
+              ? ['naive-ui', 'vueuc']
               : []
     },
     plugins: [

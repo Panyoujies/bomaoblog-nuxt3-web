@@ -32,21 +32,7 @@ const showDrawer = () => {
       </nuxt-link>
     </div>
     <div class="bomaos-header">
-      <div v-if="!$isMobile()" style="line-height: 66px; display: flex; align-items: center; margin-left: 15px">
-        <div class="bomaos-nav">
-          <div class="bomaos-nav-item">
-            <nuxt-link to="/" active-class="bomaos-this">首页文章</nuxt-link>
-          </div>
-          <template v-for="item in categoryList" :key="item.id">
-            <el-divider direction="vertical" style="height: 15px"/>
-            <div class="bomaos-nav-item">
-              <nuxt-link :to="'/' + item.alias" active-class="bomaos-this">{{ item.name }}</nuxt-link>
-              <!--              <small class="b2small">New</small>-->
-            </div>
-          </template>
-          <el-divider direction="vertical" style="height: 15px"/>
-        </div>
-      </div>
+
       <div class="bomaos-avatar" v-if="!$isMobile()">
         <div>
           <nuxt-link style="display: flex; align-items: center;">
@@ -57,13 +43,9 @@ const showDrawer = () => {
       <div v-if="$isMobile()" style="line-height: 66px; display: flex; align-items: center;">
         <div class="author" @click="showDrawer">
           <el-avatar :size="35" :src="info?.avatar ? info.avatar : '/assets/images/avatar.png'"/>
-          <svg style="margin-left: 2px" viewBox="0 0 230 1024" xmlns="http://www.w3.org/2000/svg" width="10" height="30">
-            <path stroke="null" id="svg_1" fill="#444444" d="m129.12494,151.91668l96.75003,0l0,126.89706l-96.75003,0l0,-126.89706zm0,296.09314l96.75003,0l0,126.89706l-96.75003,0l0,-126.89706zm0,296.09314l96.75003,0l0,126.89706l-96.75003,0l0,-126.89706z"/>
-          </svg>
         </div>
       </div>
     </div>
-    <common-header-drawer v-model:visible="visible" />
   </div>
 
 </template>

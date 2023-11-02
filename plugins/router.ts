@@ -16,7 +16,7 @@ export default defineNuxtPlugin((nuxtApp) => {
      * 修复路由跳转回到顶部
      */
     customRouter.options.scrollBehavior = () => {
-        return { left: 0, top: 0 }
+        return { top: 0 }
     }
 
     nuxtApp.hook("page:start", () => {
