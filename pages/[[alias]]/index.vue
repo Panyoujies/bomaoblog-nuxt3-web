@@ -76,7 +76,7 @@ useHead({
   meta: [
     { name: 'Keywords', content: computed(() => {
         if (category.value.id) {
-          return category.value.name + ',鱼七博客,it,java,typescript,波猫'
+          return category.value.name + ',鱼七博客,it,java,typescript,波猫,博客模板,个人博客,开源博客,vue3,nuxt3'
         } else {
           return '404'
         }

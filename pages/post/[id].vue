@@ -230,7 +230,7 @@ useHead({
   meta: [
     { name: 'Keywords', content: computed(() => {
         if (article.value.id && article.value.title) {
-          return '鱼七博客,' + article.value.title + ',教程'
+          return '鱼七博客,' + article.value.title + ',教程,博客模板,个人博客,开源博客,vue3,nuxt3'
         } else {
           return '404'
         }

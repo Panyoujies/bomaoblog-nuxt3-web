@@ -20,7 +20,7 @@ const route = useRoute();
  */
 const params = reactive<FriendLinksParam>({
   page: 1,
-  limit: 8
+  limit: 24
 });
 
 const { page } = route.query;
@@ -60,6 +60,15 @@ const switchPage = async (value: number) => {
 
 onUnmounted(() => {
   loading.value = false;
+})
+
+useHead({
+  title: '友情链接 - 致力于分享最全的编程教程',
+  meta: [
+    { name: 'Keywords', content: '鱼七博客,it,java,typescript,博客模板,个人博客,开源博客,vue3,nuxt3' },
+    { name: 'description', content: '致力于分享最全的编程教程' },
+    { name: 'shenma-site-verification', content: '35386d3f574bc34e545cfdee962ded9d_1693873611'}
+  ],
 })
 </script>
 
@@ -135,6 +144,9 @@ onUnmounted(() => {
   width: auto;
   padding: 15px;
 
+  &:hover {
+    background-color: #f7f7f7;
+  }
 
   .content {
     display: flex;

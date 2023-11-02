@@ -59,7 +59,7 @@ onUnmounted(() => {
 useHead({
   title: '鱼七博客 - 致力于分享最全的编程教程',
   meta: [
-    { name: 'Keywords', content: '鱼七博客,it,java,typescript,波猫' },
+    { name: 'Keywords', content: '鱼七博客,it,java,typescript,波猫,博客模板,个人博客,开源博客,vue3,nuxt3' },
     { name: 'description', content: '致力于分享最全的编程教程' },
     { name: 'shenma-site-verification', content: '35386d3f574bc34e545cfdee962ded9d_1693873611'}
   ],
