@@ -79,6 +79,23 @@ await listCategorys().then((d) => {
                 </nuxt-link>
               </div>
               <div class="sider-item">
+                <nuxt-link to="/tags" class="sider-item--inner" active-class="sider-item--inner__active">
+                  <div class="sider-list-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                      <path fill="currentColor" d="M10.604 2.117L10.006 7.5h4.988l.623-5.604l1.987.22l-.598 5.384H22v2h-5.216l-.556 5H22v2h-5.994l-.623 5.604l-1.987-.22l.598-5.384H9.006l-.623 5.604l-1.987-.22l.598-5.384H2v-2h5.216l.556-5H2v-2h5.994l.623-5.604l1.987.22ZM9.784 9.5l-.556 5h4.988l.556-5H9.784Z"/>
+                    </svg>
+                    <div>
+                      云标签
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                      <path fill="currentColor" d="m8.086 17.5l5.5-5.5l-5.5-5.5L9.5 5.086L16.414 12L9.5 18.914L8.086 17.5Z"/>
+                    </svg>
+                  </div>
+                </nuxt-link>
+              </div>
+              <div class="sider-item">
                 <nuxt-link to="/links" class="sider-item--inner" active-class="sider-item--inner__active">
                   <div class="sider-list-title">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
@@ -97,7 +114,7 @@ await listCategorys().then((d) => {
               </div>
             </div>
           </div>
-          <div class="sider-fotter">
+          <div class="sider-footer">
             <n-alert type="info" bordered :show-icon="false">
               本博客专注于前后端开发与波猫商店建设教程，旨在为开发者和商家提供全面的指导和解决方案。
             </n-alert>
@@ -135,6 +152,10 @@ await listCategorys().then((d) => {
 
 .sider-body {
   flex: 1;
+}
+
+.sider-footer {
+  margin-top: 15px;
 }
 
 .sider-list {
