@@ -7,6 +7,7 @@ import type {Article, ArticleParam} from "~/api/content/article/model";
 import type {Category} from "~/api/content/category/model";
 import NumberFormatter from "../../utils/NumberFormatter";
 
+const { $isMobile, $isDesktop } = useNuxtApp();
 const category = ref<Category>({});
 const articleList = ref<Article[]>([]);
 const loading = ref<boolean>(false);
@@ -95,7 +96,7 @@ useHead({
 
 <template>
   <div>
-    <nav>
+    <nav v-if="!$isMobile()">
       <div class="navBox">
         <el-row style="row-gap: 15px;" :gutter="15">
           <el-col :xs="24" :sm="24" :md="20" :lg="20" :xl="20">
@@ -170,6 +171,58 @@ useHead({
         </el-row>
       </div>
     </nav>
+    <header v-else>
+      <div class="user-name-wrap">
+        <div class="user-img">
+          <div class="van-circle" style="width: 90px; height: 90px;">
+            <svg viewBox="0 0 1025 1025">
+              <defs>
+                <linearGradient id="van-circle-1" x1="100%" y1="0%" x2="0%" y2="0%">
+                  <stop offset="0%" stop-color="#8fdae4"></stop>
+                  <stop offset="100%" stop-color="#fa7399"></stop>
+                </linearGradient>
+              </defs>
+              <path class="van-circle__layer" d="M 512.5 512.5 m 0, -500 a 500, 500 0 1, 1 0, 1000 a 500, 500 0 1, 1 0, -1000" style="fill: none; stroke-width: 25px;"></path>
+              <path d="M 512.5 512.5 m 0, -500 a 500, 500 0 1, 1 0, 1000 a 500, 500 0 1, 1 0, -1000" class="van-circle__hover" stroke="url(#van-circle-1)" style="stroke: url(&quot;#van-circle-1&quot;); stroke-width: 26px; stroke-dasharray: 3140px, 3140px;"></path>
+            </svg>
+            <div class="mobile-img-border">
+              <van-image
+                  round
+                  width="80px"
+                  height="80px"
+                  fit="cover"
+                  :src="category.cover as string"
+                  :lazy-load="true"
+              >
+                <template v-slot:loading>
+                  <van-loading type="spinner" size="50" />
+                </template>
+              </van-image>
+            </div>
+          </div>
+        </div>
+        <div class="username">{{ category.name ?? '数据获取中...' }}</div>
+        <n-ellipsis expand-trigger="click" line-clamp="1" :tooltip="false">
+          <span>{{ category.summary ?? '数据获取中...' }}</span>
+        </n-ellipsis>
+        <ul class="user-data">
+          <li>
+            <span>{{ NumberFormatter.formatNumber(category.seeNumber) }}</span>
+            <div>访问</div>
+          </li>
+          <el-divider direction="vertical" style="margin: 0 15px;"/>
+          <li>
+            <span>{{ category.articleNumber ?? 0 }}</span>
+            <div>文章</div>
+          </li>
+          <el-divider direction="vertical" style="margin: 0 15px;"/>
+          <li>
+            <span>0</span>
+            <div>收藏</div>
+          </li>
+        </ul>
+      </div>
+    </header>
     <div class="yuqi-layout">
       <div>
         <div class="article-tem" v-loading="loading">
@@ -302,5 +355,77 @@ nav {
   fill: none;
   stroke: #1989fa;
   stroke-linecap: round;
+}
+
+header {
+  .user-name-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 20px;
+    background-color: white;
+    border-bottom: 1px solid #f0f0f0;
+
+    .user-img {
+      margin-bottom: 10px;
+    }
+
+    .username {
+      font-size: 20px;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+
+    .user-data {
+      position: relative;
+      display: flex;
+      align-items: center;
+      font-size: 20px;
+      color: #333;
+      margin-top: 10px;
+
+      li {
+        display: flex;
+        align-items: center;
+
+        span {
+          font-size: 20px;
+          margin-right: 6px;
+        }
+
+        div {
+          display: inline-block;
+          font-size: 16px;
+          color: #999;
+        }
+
+        &:nth-child(3) {
+          div {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+    .user-data {
+      justify-content: center;
+    }
+  }
+}
+
+.mobile-img-border {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  background-size: cover;
+
+  .user-img {
+    width: 176px;
+    height: 176px;
+  }
+
+  .user-img {
+    border-radius: 50%;
+  }
 }
 </style>
