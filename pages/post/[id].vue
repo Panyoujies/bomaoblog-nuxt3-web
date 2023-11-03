@@ -258,7 +258,7 @@ useHead({
           <div id="video"></div>
         </div>
       </div>
-      <el-card class="bomaos-card" :body-style="{ padding: '0px' }">
+      <div class="bomaos-card">
         <div :style="{ padding: '15px' }">
           <div class="header">
             <span class="title" :style="{ fontSize: $isMobile() ? '18px' : '25px' }">{{ article.title }}</span>
@@ -280,32 +280,29 @@ useHead({
         <div class="bomaos-card-footer" :style="{ padding: '15px' }">
           <div>
             <el-space wrap>
-              <el-tag
-                  v-for="tag in article.initValue"
-                  :key="tag.tagId"
-                  class="mx-1"
-                  type="success"
-                  effect="light"
-              >
+              <bomaos-tag v-for="tag in article.initValue" :key="tag.tagId" :url="'/tags/' + tag.tagId">
+                <template #icon>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M10.604 2.117L10.006 7.5h4.988l.623-5.604l1.987.22l-.598 5.384H22v2h-5.216l-.556 5H22v2h-5.994l-.623 5.604l-1.987-.22l.598-5.384H9.006l-.623 5.604l-1.987-.22l.598-5.384H2v-2h5.216l.556-5H2v-2h5.994l.623-5.604l1.987.22ZM9.784 9.5l-.556 5h4.988l.556-5H9.784Z"/>
+                  </svg>
+                </template>
                 {{ tag.tagName }}
-              </el-tag>
+              </bomaos-tag>
             </el-space>
           </div>
           <div class="time">
             更新于 {{ dayjs(article.updateTime).fromNow() }}
           </div>
         </div>
-      </el-card>
+      </div>
       <div class="comment">
-        <el-card class="bomaos-card" :body-style="{ padding: '5px 15px 15px 15px' }">
-          <template #header>
-            <div style="display: flex; align-items: flex-end; margin-bottom: 20px">
-              <h2 style="line-height: 1.1; margin-right: 10px">评论</h2>
-              <span style="color: #666666">Comment</span>
-            </div>
-            <!-- 评论组件 -->
-            <comment-submit comment-type="comment" :article-id="article.id" @done="reload"/>
-          </template>
+        <div class="bomaos-card">
+          <div style="display: flex; align-items: flex-end; margin-bottom: 20px">
+            <h2 style="line-height: 1.1; margin-right: 10px">评论</h2>
+            <span style="color: #666666; line-height: 1.1;">Comment</span>
+          </div>
+          <!-- 评论组件 -->
+          <comment-submit comment-type="comment" :article-id="article.id" @done="reload"/>
           <div>
             <el-empty v-if="state" description="暂无评论" :image-size="70"/>
             <div v-else>
@@ -317,14 +314,14 @@ useHead({
               />
               <div
                   v-if="!state"
-                  style=" display: flex; justify-content: center;"
+                  style="display: flex; justify-content: center;"
                   :style="{ paddingTop: '15px' }"
               >
                 <el-button link :loading="commentLoading" :disabled="disabled" @click="handleInfiniteOnLoad">{{ disabled ? '加载完成' : '加载更多' }}</el-button>
               </div>
             </div>
           </div>
-        </el-card>
+        </div>
       </div>
     </div>
   </div>
@@ -343,6 +340,11 @@ useHead({
   height: 100%;
   background-size: cover;
   background-position: 50%;
+}
+
+.comment {
+  padding: 15px;
+  border-top: 1px solid #f0f0f0;
 }
 
 .bomaos-card {

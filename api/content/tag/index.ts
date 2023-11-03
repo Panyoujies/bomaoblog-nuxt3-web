@@ -33,7 +33,7 @@ export async function listTags(params?: TagParam) {
  * 根据id查询类别
  */
 export async function getTag(id?: number) {
-  const res = await request.get<ApiResult<Tag>>('/content/tag/' + id);
+  const res = await request.get<Tag>('/content/tag/' + id, null, {server: true});
   if (res.code === 0 && res.data) {
     return res.data;
   }

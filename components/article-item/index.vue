@@ -56,7 +56,7 @@ const navigateToCategory = async () => {
     </div>
     <div class="van-cell__title">
       <div class="title">
-        <div style="display: flex;     align-items: center;">
+        <div style="display: flex; align-items: center;">
           <div v-if="article?.isPinned" class="pinned">
             置顶
           </div>
