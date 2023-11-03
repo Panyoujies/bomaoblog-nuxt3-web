@@ -8,7 +8,7 @@ import type { Tag, TagParam } from "./model";
 export async function pageTags(params: TagParam) {
   const res = await request.get<ApiResult<PageResult<Tag>>>(
     '/content/tag/page',
-    { params }
+    { params }, {server: true}
   );
   if (res.code === 0) {
     return res.data;
@@ -20,9 +20,7 @@ export async function pageTags(params: TagParam) {
  * 查询类别列表
  */
 export async function listTags(params?: TagParam) {
-  const res = await request.get<ApiResult<Tag[]>>('/content/tag', {
-    params
-  });
+  const res = await request.get<Tag[]>('/content/tag', { ...params }, {server: true});
   if (res.code === 0 && res.data) {
     return res.data;
   }
