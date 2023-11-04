@@ -2,7 +2,7 @@
 const props = defineProps<{
   // 弹窗是否打开
   url?: string;
-  amount?: number;
+  count?: number;
 }>();
 </script>
 
@@ -17,8 +17,8 @@ const props = defineProps<{
     <div class="right" v-if="!!$slots.suffix">
       (<slot name="suffix"/>)
     </div>
-    <div class="right" v-if="props.amount">
-      <n-badge :value="props.amount as number" color="#3f9eff"/>
+    <div class="right" v-if="props.count">
+      <n-badge :value="props.count as number" color="#3f9eff"/>
     </div>
   </nuxt-link>
 </template>

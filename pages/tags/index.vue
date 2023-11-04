@@ -59,11 +59,17 @@ onUnmounted(() => {
     <div class="yuqi-layout">
       <div class="yuqi-layout-header">
         <div># 全部云标签</div>
+        <div>共 {{ tagList.length }} 个</div>
       </div>
       <div class="yuqi-layout-body">
         <div class="yuqi-item" v-loading="loading" :style="{margin: $isMobile() ? '15px' : '15px 0 15px 15px'}">
           <el-space wrap>
-            <bomaos-tag v-for="tag in tagList" :key="tag.tagId" :url="'/tags/' + tag.tagId" :amount="tag.articleCount">
+            <bomaos-tag
+                v-for="tag in tagList"
+                :key="tag.tagId"
+                :url="'/tags/' + tag.tagId"
+                :count="tag.articleCount"
+            >
               <template #icon>
                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24">
                   <g fill="none" fill-rule="evenodd">
