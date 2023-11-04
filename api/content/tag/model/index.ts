@@ -4,7 +4,11 @@ export interface Tag {
   // 自增id")
   tagId?: number;
 
+  // 标签名称
   tagName?: string;
+
+  // 文章数量
+  articleCount?: number;
 
   // 租户id")
   tenantId?: number;

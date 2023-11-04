@@ -20,6 +20,19 @@ export async function pageArticles(params: ArticleParam) {
 }
 
 /**
+ * 分页查询文章
+ */
+export async function pageArticlesByTagId(params: ArticleParam, tagId: number) {
+  const res = await request.get<PageResult<Article>>('/content/article/pageArticlesByTagId/' + tagId, {...params},
+      {server: true}
+  );
+  if (res.code === 0) {
+    return res.data && res.data;
+  }
+  return Promise.reject(new Error(res.message));
+}
+
+/**
  * 查询热门推荐
  */
 export async function getHotPosts(params?: ArticleParam) {
